@@ -4,37 +4,99 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
+void visualizacao(short tabuleiro[10][10]) {
+    printf("         >>>> TABULEIRO <<<<      \n");
+    printf("  | 0  1  2  3  4  5  6  7  8  9 |\n");
+    printf("--+------------------------------+");
+    printf("\n");
+    for (short linha = 0; linha < 10; linha++) {
+
+        printf("%d |", linha);
+        for (short col = 0; col < 10; col++) {
+            printf(" %d ", tabuleiro[linha][col]);
+        }
+
+        printf("|\n");
+    }
+    printf("--+------------------------------+");
+    printf("\n");
+}
+
+
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    short lin_nav1 = 0, col_nav1 = 0;
+    short lin_nav2 = 0, col_nav2 = 0;
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    short tabuleiro[10][10] = {
+    //   0  1  2  3  4  5  6  7  8  9
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 0
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 1
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 2
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 3
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 4
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 5
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 6
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 7
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 8
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 9
+    };
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    visualizacao(tabuleiro);
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    printf("Posicione 2 navios fornecendo as cordenadas\n");
+
+    do {
+        do {
+            printf("Digite a posição do 1 Navio[Ex: 0 1]\n");
+            printf("=> ");
+            scanf(" %hd %hd", &lin_nav1, &col_nav1);
+
+            if (!((lin_nav1 < 10 && lin_nav1 >= 0) && (col_nav1 < 10 && col_nav1 >= 0))) {
+                printf("Coordenados Inválidas.\n Tente Novamente!\n");
+            }else if(!(lin_nav1 + 3 < 10)) {
+                printf("O Navio excede os limites do Tabuleiro.\n Tente Novamente!\n");
+            }else {
+                break; 
+            }
+
+        } while(1);
+
+        do {
+            printf("Digite a posição do 2 Navio[Ex: 0 1]\n");
+            printf("=> ");
+            scanf(" %hd %hd", &lin_nav2, &col_nav2);
+
+            if (!((lin_nav2 < 10 && lin_nav2 >= 0) && (col_nav2 < 10 && col_nav2 >= 0))) {
+                printf("Coordenados Inválidas.\n Tente Novamente!\n");
+            }else if(!(col_nav2 + 3 < 10)) {
+                printf("O Navio excede os limites do Tabuleiro.\n Tente Novamente!\n");
+            }else {
+                break; 
+            }
+
+        } while(1);
+
+
+        if (lin_nav2 >= lin_nav1 && lin_nav2 <= lin_nav1 + 2) { 
+            printf("Os navios se sobrepoem, escolha outras coordenadas\n");
+            continue;
+        }
+
+        break;
+    } while(1);
+
+    // Navio 1
+    for (short i = lin_nav1; i <= lin_nav1 + 2; i++) {
+        tabuleiro[i][col_nav1] = 1;
+    }
+
+    // Navio 2
+    for (short i = col_nav2; i <= col_nav2 + 2; i++) {
+        tabuleiro[lin_nav2][i] = 1;
+    }
+
+    visualizacao(tabuleiro);
 
     return 0;
 }
