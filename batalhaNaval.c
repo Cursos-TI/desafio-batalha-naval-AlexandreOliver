@@ -30,15 +30,37 @@ int main() {
     short lin_nav3 = 0, col_nav3 = 0;
     short lin_nav4 = 0, col_nav4 = 0;
 
-    char matriz_n1[3][2];
-    char matriz_n2[3][2];
-    char matriz_n3[3][2];
-    char matriz_n4[3][2];
+    char matriz_posicoes_n1[3][2];
+    char matriz_posicoes_n2[3][2];
+    char matriz_posicoes_n3[3][2];
+    char matriz_posicoes_n4[3][2];
+
+    char matriz_cone[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+    };
+    char matriz_cruz[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0},
+    };
+    char matriz_octaedro[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0},
+        {0, 0, 0, 0, 0},
+    };
     
     char bool_loop = 0; // false
 
     char tabuleiro[10][10] = {
-        //   0  1  2  3  4  5  6  7  8  9
+     //  0  1  2  3  4  5  6  7  8  9
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 0
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 1
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 2
@@ -68,8 +90,8 @@ int main() {
                 printf("O Navio excede os limites do Tabuleiro.\n Tente Novamente!\n");
             } else {
                 for (short i = 0; i < 3; ++i) {
-                    matriz_n1[i][0] = lin_nav1 + i;
-                    matriz_n1[i][1] = col_nav1;
+                    matriz_posicoes_n1[i][0] = lin_nav1 + i;
+                    matriz_posicoes_n1[i][1] = col_nav1;
                 }
 
                 break; 
@@ -88,8 +110,8 @@ int main() {
                 printf("O Navio excede os limites do Tabuleiro.\n Tente Novamente!\n");
             } else {
                 for (short i = 0; i < 3; ++i) {
-                    matriz_n2[i][0] = lin_nav2;
-                    matriz_n2[i][1] = col_nav2 + i;
+                    matriz_posicoes_n2[i][0] = lin_nav2;
+                    matriz_posicoes_n2[i][1] = col_nav2 + i;
                 }
 
                 break; 
@@ -108,8 +130,8 @@ int main() {
                 printf("O Navio excede os limites do Tabuleiro.\n Tente Novamente!\n");
             } else {
                 for (short i = 0; i < 3; ++i) {
-                    matriz_n3[i][0] = lin_nav3 + i;
-                    matriz_n3[i][1] = col_nav3 + i;
+                    matriz_posicoes_n3[i][0] = lin_nav3 + i;
+                    matriz_posicoes_n3[i][1] = col_nav3 + i;
                 }
 
                 break; 
@@ -128,8 +150,8 @@ int main() {
                 printf("O Navio excede os limites do Tabuleiro.\n Tente Novamente!\n");
             }else {
                 for (short i = 0; i < 3; ++i) {
-                    matriz_n4[i][0] = lin_nav4 + i;
-                    matriz_n4[i][1] = col_nav4 + i;
+                    matriz_posicoes_n4[i][0] = lin_nav4 + i;
+                    matriz_posicoes_n4[i][1] = col_nav4 + i;
                 }
 
                 break; 
@@ -140,21 +162,21 @@ int main() {
         //            Verificação de Coordenadas Comuns
         short c = 0; 
         while (c < 3) {
-            char l1 = matriz_n1[c][0];
-            char c1 = matriz_n1[c][1];
+            char l1 = matriz_posicoes_n1[c][0];
+            char c1 = matriz_posicoes_n1[c][1];
         
             for (short j = 0; j < 3; ++j) {
-                if (l1 == matriz_n2[j][0] && c1 == matriz_n2[j][1]) {
+                if (l1 == matriz_posicoes_n2[j][0] && c1 == matriz_posicoes_n2[j][1]) {
                     printf("O navio 2 sobrepoe outro navio, escolha outras coordenadas\n Tente Novanmente!\n");
                     c = 3;
                     bool_loop = 1; // true
                     break;
-                } else if (l1 == matriz_n3[j][0] && c1 == matriz_n3[j][1]) {
+                } else if (l1 == matriz_posicoes_n3[j][0] && c1 == matriz_posicoes_n3[j][1]) {
                     printf("O navio 3 sobrepoe outro navio, escolha outras coordenadas\n Tente Novanmente!\n");
                     c = 3;
                     bool_loop = 1;
                     break;
-                } else if (l1 == matriz_n4[j][0] && c1 == matriz_n4[j][1]) {
+                } else if (l1 == matriz_posicoes_n4[j][0] && c1 == matriz_posicoes_n4[j][1]) {
                     printf("O navio 4 sobrepoe outro navio, escolha outras coordenadas\n Tente Novanmente!\n");
                     c = 3;
                     bool_loop = 1;
@@ -185,6 +207,60 @@ int main() {
     // Navio 4
     for (char i = 0; i < 3; ++i) {
         tabuleiro[lin_nav4 + i][col_nav4 + i] = 3;
+    }
+
+    visualizacao(tabuleiro);
+
+    printf("Habilidade 1 - Cone\n");
+
+    for (short i = 0; i < 5; ++i) {
+        for (short j = 0; j < 5; ++j) {
+            if (tabuleiro[3 + i][3 + j] == 0 && matriz_cone[i][j] == 1) {
+                tabuleiro[3 + i][3 + j] = 5;
+            }
+        }
+    }
+
+    visualizacao(tabuleiro);
+
+    // Limpeza
+    for (short i = 0; i < 5; ++i) {
+        for (short j = 0; j < 5; ++j) {
+            if (tabuleiro[3 + i][3 + j] == 5) {
+                tabuleiro[3 + i][3 + j] = 0;
+            }
+        }
+    }
+
+    printf("Habilidade 2 - Cruz\n");
+
+    for (short i = 0; i < 5; ++i) {
+        for (short j = 0; j < 5; ++j) {
+            if (tabuleiro[3 + i][3 + j] == 0 && matriz_cruz[i][j] == 1) {
+                tabuleiro[3 + i][3 + j] = 5;
+            }
+        }
+    }
+
+    visualizacao(tabuleiro);
+
+    // Limpeza
+    for (short i = 0; i < 5; ++i) {
+        for (short j = 0; j < 5; ++j) {
+            if (tabuleiro[3 + i][3 + j] == 5) {
+                tabuleiro[3 + i][3 + j] = 0;
+            }
+        }
+    }
+
+    printf("Habilidade 1 - Octaedro\n");
+
+    for (short i = 0; i < 5; ++i) {
+        for (short j = 0; j < 5; ++j) {
+            if (tabuleiro[3 + i][3 + j] == 0 && matriz_octaedro[i][j] == 1) {
+                tabuleiro[3 + i][3 + j] = 5;
+            }
+        }
     }
 
     visualizacao(tabuleiro);
